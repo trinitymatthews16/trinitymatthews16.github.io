@@ -1,0 +1,34 @@
+{
+  "name": "Student Web Dev Environment",
+  "customizations": {
+    "vscode": {
+      "extensions": ["esbenp.prettier-vscode", "ritwickdey.LiveServer"],
+      "settings": {
+        "github.copilot.enable": {
+          "*": false
+        },
+        "github.copilot.inlineSuggest.enable": false,
+        "github.copilot.chat.enable": false,
+        "workbench.editorAssociations": {
+          "*.md": "vscode.markdown.preview.editor"
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[html]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        },
+        "[css]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true,
+          "editor.tabSize": 2,
+          "prettier.tabWidth": 2
+        }
+      }
+    }
+  }
+}
