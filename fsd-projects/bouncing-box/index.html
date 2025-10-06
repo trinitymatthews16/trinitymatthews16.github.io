@@ -19,56 +19,74 @@
         left: 0px;
       }
 
+
       .board {
         height: 100vh;
       }
     </style>
-    <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <!--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
   </head>
+
 
   <body class="board">
     <!-- HTML for the box -->
     <div class="box">?</div>
+
 
     <script>
       (function () {
         "use strict";
         /* global jQuery */
 
+
         //////////////////////////////////////////////////////////////////
         /////////////////// SETUP DO NOT DELETE //////////////////////////
         //////////////////////////////////////////////////////////////////
 
+
         var box = jQuery(".box"); // reference to the HTML .box element
         var board = jQuery(".board"); // reference to the HTML .board element
         var boardWidth = board.width(); // the maximum X-Coordinate of the screen
+
 
         // update the boardWidth variable when the window is resized
         jQuery(window).on("resize", function () {
           boardWidth = board.width();
         });
 
+
         // Every 50 milliseconds, call the update Function (see below)
         setInterval(update, 50);
 
+
         // Every time the box is clicked, call the handleBoxClick Function (see below)
         box.on("click", handleBoxClick);
+
 
         // moves the Box to a new position on the screen along the X-Axis
         function moveBoxTo(newPositionX) {
           box.css("left", newPositionX);
         }
 
+
         // changes the text displayed on the Box
         function changeBoxText(newText) {
           box.text(newText);
         }
 
+
         //////////////////////////////////////////////////////////////////
         /////////////////// YOUR CODE BELOW HERE /////////////////////////
         //////////////////////////////////////////////////////////////////
 
+
         // TODO 2 - Variable declarations
+        var positionX = 0;
+        var points = 0;
+        var speed = 0;
+
+
+
 
 
 
@@ -80,11 +98,25 @@
          * If the box drifts off the screen, turn it around!
          */
         function update() {
+        positionX = positionX + speed; // Increases positionX by speed.
+        moveBoxTo(positionX);
+        if (positionX >= boardWidth) {
+            // Code to reverse speed goes here
+            speed *= -1;
+            }
+        else if (positionX < 0) {
+  // Code to reverse speed goes here
+             speed *= -1;
+             speed = 3 * points + 10;
+            }
 
-        
 
-          
+       
+
+
+         
         }
+
 
         /**
          * This Function will be called each time the box is clicked.
@@ -94,6 +126,10 @@
          * - move the box to the left side of the screen.
          */
         function handleBoxClick() {
+            positionX = 0;
+            changeBoxText(points);
+            points++;
+            speed += 3;
 
 
 
@@ -101,8 +137,15 @@
         }
 
 
-        
+
+
+       
       })();
     </script>
   </body>
 </html>
+
+
+
+
+
