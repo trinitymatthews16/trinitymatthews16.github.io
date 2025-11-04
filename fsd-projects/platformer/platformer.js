@@ -1,5 +1,4 @@
 $(function () {
-  // initialize canvas and context when able to
   canvas = document.getElementById("canvas");
   ctx = canvas.getContext("2d");
   window.addEventListener("load", loadJson);
@@ -12,49 +11,41 @@ $(function () {
       $(document).on("keydown", handleKeyDown);
       $(document).on("keyup", handleKeyUp);
       firstTimeSetup = false;
-      //start game
       setInterval(main, 1000 / frameRate);
     }
 
-    // Create walls - do not delete or modify this code
-    createPlatform(-50, -50, canvas.width + 100, 50); // top wall
-    createPlatform(-50, canvas.height - 10, canvas.width + 100, 200, "navy"); // bottom wall
-    createPlatform(-50, -50, 50, canvas.height + 500); // left wall
-    createPlatform(canvas.width, -50, 50, canvas.height + 100); // right wall
+    createPlatform(-50, -50, canvas.width + 100, 50); 
+    createPlatform(-50, canvas.height - 10, canvas.width + 100, 200, "navy"); 
+    createPlatform(-50, -50, 50, canvas.height + 500); 
+    createPlatform(canvas.width, -50, 50, canvas.height + 100); 
 
     //////////////////////////////////
     // ONLY CHANGE BELOW THIS POINT //
     //////////////////////////////////
 
-    // TODO 1 - Enable the Grid
-     toggleGrid();
+    toggleGrid();
 
+    // Platforms rearranged strategically
+    createPlatform(100, 700, 400, 30, "aqua");
+    createPlatform(50, 620, 80, 30, "pink");
+    createPlatform(180, 550, 60, 20, "blue");
+    createPlatform(300, 500, 200, 20, "aqua");
 
-    // TODO 2 - Create Platforms
-    createPlatform(225, 700, 400, 30,"aqua");
-    createPlatform(35, 625, 60, 50,"pink");
-    createPlatform(150, 511, 50, 40, "blue");
-    createPlatform(135, 500, 400,"aqua");
-  
+    // Moving platform
+    createPlatform(400, 400, 120, 20, "orange", { moving: true, speed: 2, direction: "horizontal" });
 
+    // Collectables
+    createCollectable("diamond", 150, 200, 1.5, 0.6);
+    createCollectable("grace", 250, 250, 2.5, 0.5);
 
+    // Moving collectable
+    createCollectable("star", 300, 150, 2, 0.4, { moving: true, speedX: 2, speedY: 0 });
 
-    // TODO 3 - Create Collectables
+    // Cannons
+    createCannon("top", 400, 3000);
+    createCannon("right", 100, 3000);
+    createCannon("bottom", 200, 3000);
 
-createCollectable("diamond", 100, 175, 1.5, 0.6);
-createCollectable("grace", 115, 185, 2.5, 0.5);
-createCollectable("max", 110, 180, 3.5, 0.4);
-
-
-
-    
-    // TODO 4 - Create Cannons
-createCannon("top", 400, 3000);
-createCannon("right", 100, 3000);
-createCannon("bottom", 200, 3000);
-
-    
-    
     //////////////////////////////////
     // ONLY CHANGE ABOVE THIS POINT //
     //////////////////////////////////

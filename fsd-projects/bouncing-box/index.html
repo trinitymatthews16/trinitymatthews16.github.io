@@ -28,124 +28,84 @@
   </head>
 
   <body class="board">
-    <!-- HTML for the box -->
     <div class="box">?</div>
     <div class="misclick-counter">Misses: 0</div>
-    <div class="game-over">Tinity's Bouncing Box - GAME OVER</div>
+    <div class="game-over" style="display:none;">Tinity's Bouncing Box - GAME OVER</div>
 
     <script>
       (function () {
         "use strict";
-        var gameOverMessage = jQuery(".game-over")
-        var box = jQuery(".box")
-        var board = jQuery(".board") 
-       
-        /* global jQuery */
+        var gameOverMessage = jQuery(".game-over");
+        var box = jQuery(".box");
+        var board = jQuery(".board");
 
-        //////////////////////////////////////////////////////////////////
-        /////////////////// SETUP DO NOT DELETE //////////////////////////
-        //////////////////////////////////////////////////////////////////
-
-        var box = jQuery(".box"); // reference to the HTML .box element
-        var board = jQuery(".board"); // reference to the HTML .board element
-        var boardWidth = board.width(); // the maximum X-Coordinate of the screen
+        var boardWidth = board.width();
         var boardHeight = jQuery(window).height();
         var counter = jQuery(".misclick-counter");
-        // update the boardWidth variable when the window is resized
+
         jQuery(window).on("resize", function () {
           boardWidth = board.width();
+          boardHeight = jQuery(window).height();
         });
 
-        // Every 50 milliseconds, call the update Function (see below)
         var interval = setInterval(update, 50);
 
-        // Every time the box is clicked, call the handleBoxClick Function (see below)
-        box.on("click", function (event){
-          event.stopPragation();
-          handleBoxClick(event);
+        box.on("click", function (event) {
+          event.stopPropagation();
+          handleBoxClick();
         });
 
-
-        board.on("click", function (event){
+        board.on("click", function (event) {
           if (!jQuery(event.target).hasClass("box")) {
-            handleBoardClick(); 
-      }
-     });
-        // moves the Box to a new position on the screen along the X-Axis
+            handleBoardClick();
+          }
+        });
+
         function moveBoxTo(newPositionX, newPositionY) {
           box.css("left", newPositionX);
           box.css("top", newPositionY);
         }
 
-        // changes the text displayed on the Box
         function changeBoxText(newText) {
           box.text(newText);
         }
 
-        //////////////////////////////////////////////////////////////////
-        /////////////////// YOUR CODE BELOW HERE /////////////////////////
-        //////////////////////////////////////////////////////////////////
-
-        // TODO 2 - Variable declarations
         var positionX = 0;
         var points = 0;
         var speed = 5;
         var positionY = 0;
         var speedY = 3;
-        var GameOver = false
+        var gameOver = false;
 
-        //rgb syntax
         var colorStr = "rgb(50, 25, 250)";
         box.css("background-color", colorStr);
 
-        /**
-         * This Function will be called 20 times/second.
-         * Each time it is called, it should move the Box to a new location.
-         * If the box drifts off the screen, turn it around!
-         */
         function update() {
           if (gameOver) return;
 
-          positionX = positionX + speed; // Increases positionX by speed.
+          positionX += speed;
           positionY += speedY;
-          moveBoxTo(positionX, positionY);
 
           if (positionX < 0) {
+            positionX = 0;
             speed = -speed;
           } else if (positionX > boardWidth - box.width()) {
+            positionX = boardWidth - box.width();
             speed = -speed;
           }
 
           if (positionY < 0) {
+            positionY = 0;
             speedY = -speedY;
           } else if (positionY > boardHeight - box.height()) {
+            positionY = boardHeight - box.height();
             speedY = -speedY;
           }
-        }
-        function handleBoardClick(event) {
-          if (gameOver) return;
+
+          moveBoxTo(positionX, positionY);
         }
 
-        /**
-         * This Function will be called each time the box is clicked.
-         * Each time it is called, it should perform each of the following actions:
-         * - increase the points total
-         * - increase the speed
-         * - move the box to the left side of the screen.
-         */
-        function handleBoxClick() {
-          if (gameOver) return;
-          positionX = 0;
-          changeBoxText(points);
-          points++;
-          speed += 3;
-          box.css("background-color", getRandomColor());
-          if (points % 3 === 0) {
-            box.css("background-color", getRandomColor());
-          }
-        }
-        
-        misClicks = 0;
+        var misClicks = 0;
         updatemisClicks();
 
         function handleBoardClick() {
@@ -153,10 +113,21 @@
           misClicks++;
           updatemisClicks();
 
-          if (misClick >= 10) {
+          if (misClicks >= 10) {
             triggerGameOver();
           }
-    
+        }
+
+        function handleBoxClick() {
+          if (gameOver) return;
+          positionX = 0;
+          points++;
+          changeBoxText(points);
+          speed += 3;
+          box.css("background-color", getRandomColor());
+          if (points % 3 === 0) {
+            box.css("background-color", getRandomColor());
+          }
         }
 
         function updatemisClicks() {
@@ -172,20 +143,17 @@
           board.off("click");
         }
 
-        // rounding suggestion
         function getRandomColor() {
           var r = Math.floor(Math.random() * 255);
           var g = Math.floor(Math.random() * 255);
           var b = Math.floor(Math.random() * 255);
           return "rgb(" + r + "," + g + "," + b + ")";
         }
-        
+
         function endGame() {
-          clearInterval(interval)
+          clearInterval(interval);
         }
       })();
     </script>
   </body>
 </html>
-
-
