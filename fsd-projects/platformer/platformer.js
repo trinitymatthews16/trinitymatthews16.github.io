@@ -32,14 +32,14 @@ $(function () {
     createPlatform(300, 500, 200, 20, "aqua");
 
     // Moving platform
-    createPlatform(400, 400, 120, 20, "orange", { moving: true, speed: 2, direction: "horizontal" });
+    createPlatform(400, 400, 120, 20, "orange", 400, 900,2);
 
     // Collectables
     createCollectable("diamond", 150, 200, 1.5, 0.6);
     createCollectable("grace", 250, 250, 2.5, 0.5);
 
     // Moving collectable
-    createCollectable("star", 300, 150, 2, 0.4, { moving: true, speedX: 2, speedY: 0 });
+    createCollectable("kennedi", 300, 150 ,0.5, 0.4, 400,900,2);
 
     // Cannons
     createCannon("top", 400, 3000);
