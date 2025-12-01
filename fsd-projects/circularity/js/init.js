@@ -20,19 +20,30 @@ var init = function (window) {
         ///////////////////
         
         // TODO 1 : Declare and initialize our variables
-
-
+      var circle;  
+      var circles = [];
 
         // TODO 2 : Create a function that draws a circle 
-        
+        function drawCircle() {
+           circle = draw.randomCircleInArea(canvas, true, true, "#999", 2);
+           physikz.addRandomVelocity(circle, canvas, 5, 5);
+           view.addChild(circle);
+           circles.push(circle);
+        }
 
 
         // TODO 3 : Call the drawCircle() function
-
+        //*drawCircle()
+        //*drawCircle()
+        //*drawCircle()
+        //*drawCircle()
+        //*drawCircle()
 
 
         // TODO 7 : Use a loop to create multiple circles
-
+        for (let i = 0; i < 100; i++){
+            drawCircle();
+        }
 
 
 
@@ -47,13 +58,24 @@ var init = function (window) {
         */
         function update() {
             // TODO 4 : Update the position of each circle using physikz.updatePosition()
-
-            
+           //* physikz.updatePostion();
+          //*physikz.updatePostion();
+        //*physikz.updatePostion();
+        //*physikz.updatePostion();
+        //*physikz.updatePostion();
             // TODO 5 : Call game.checkCirclePosition() on your circles
-           
-
+            game.checkCirclePosition();
+            game.checkCirclePosition();
+            game.checkCirclePosition();
+            game.checkCirclePosition();
+            game.checkCirclePosition();
             // TODO 8 / TODO 9 : Iterate over the array
-           
+          function update() {
+            for (let i = 0; i < circles.length; i++) {
+                physics.updatePostion(circles[i]);
+                game.checkCirclePosition(circles[i]);
+            }
+          }
             
         }
     
@@ -71,10 +93,21 @@ var init = function (window) {
             
             // TODO 6 : YOUR CODE STARTS HERE //////////////////////
             
-
+            if (circle.x > 800) {
+                circle.x = 0;
+            }
+            if (circle.x < 0) {
+                circle.x = 800;
+            }
+            if (circle.y > 600) {
+                circle.y= 0;
+            }
+            if (circle.y < 0) {
+                circle.y = 600
+            }
 
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
-        }
+        };
         
         /////////////////////////////////////////////////////////////
         // --- NO CODE BELOW HERE  --- DO NOT REMOVE THIS CODE --- //
